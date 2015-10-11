@@ -16,7 +16,7 @@ RUN apt-get update; apt-get install -y wine1.7 winetricks wine-mono4.5.6 wine-ge
 
 # Set the locale and timezone.
 RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
-RUN echo "America/Los_Angeles" > /etc/timezone
+RUN echo "America/New_York" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Create a user inside the container, what has the same UID as your

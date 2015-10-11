@@ -1,14 +1,18 @@
 ynab:
-  image: shofetim/ynab
+  image: langdon/ynab-post-setup
   command: wine .wine/drive_c/Program\ Files\ \(x86\)/YNAB\ 4/YNAB\ 4.exe
   volumes:
    # Mount the X11 socket so that we can share graphics with the host system
    - /tmp/.X11-unix:/tmp/.X11-unix
    - ~/.Xauthority:/home/docker/.Xauthority
    # Map the YNAB folder on the host to the YNAB folder in the container
-   - ~/YNAB:/home/docker/YNAB
+   - ~/Documents/YNAB:/home/docker/YNAB
    # Map the Downloads directory on the host, into the container
    - ~/Downloads:/home/docker/Downloads
+   # Map the Dropbox folder in to the container
+   - /mnt/nbu/Dropbox:/home/docker/Dropbox
+   #- /mnt/nbu/Dropbox:/home/docker/.wine/drive_c/users/docker/Application\ Data/Dropbox
+   #- ~/Dropbox:/home/docker/.wine/drive_c/users/docker/Application\ Data/Dropbox
   environment:
    # Pass through the hosts DISPLAY env setting
    - DISPLAY
