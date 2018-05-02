@@ -18,7 +18,7 @@ RUN dpkg --add-architecture i386; \
     apt-add-repository https://dl.winehq.org/wine-builds/debian/ buster main
 
 # Get the latest WINE
-RUN apt-get update; apt-get install -y winehq-stable
+RUN apt-get update; apt-get install -y winehq-stable winetricks wine-mono4.7.1 wine-gecko2.47
 
 # Set the locale and timezone.
 RUN apt-get update; apt-get install -y locales tzdata
