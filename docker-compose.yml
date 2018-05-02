@@ -10,7 +10,7 @@ ynab:
    # Map the Downloads directory on the host, into the container
    - ~/Downloads:/home/docker/Downloads
    # Map the Dropbox folder in to the container
-   - /mnt/nbu/Dropbox:/home/docker/Dropbox
+   - /home/lcanessa/Dropbox:/home/docker/Dropbox
    #- /mnt/nbu/Dropbox:/home/docker/.wine/drive_c/users/docker/Application\ Data/Dropbox
    #- ~/Dropbox:/home/docker/.wine/drive_c/users/docker/Application\ Data/Dropbox
   environment:
