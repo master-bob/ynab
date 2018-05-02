@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER Joe Phillips "phillijw@gmail.com"
+MAINTAINER Leonardo Canessa "masterbob@gmail.com"
 
 # Let apt know that we will be running non-interactively.
 ENV DEBIAN_FRONTEND noninteractive
