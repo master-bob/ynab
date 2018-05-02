@@ -12,7 +12,7 @@ RUN apt-get install -y apt-utils
 RUN apt-get install -y wget
 
 # Install apt-add-repository
-RUN apt-get install -y software-properties-common apt-transport-https
+RUN apt-get install -y software-properties-common apt-transport-https gnupg
 
 # Setup i386 architecture
 RUN dpkg --add-architecture i386; \
