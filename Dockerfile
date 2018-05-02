@@ -43,7 +43,7 @@ ENV HOME /home/docker
 WORKDIR /home/docker
 
 # Add the ynab installer to the image.
-ADD ["http://www.youneedabudget.com/CDNOrigin/download/ynab4/liveCaptive/Win/YNAB%204_4.3.729_Setup.exe", "ynab_setup.exe"]
+ADD ["https://downloadpull-youneedabudgetco.netdna-ssl.com/ynab4/liveCaptive/Win/YNAB%204_4.3.857_Setup.exe", "ynab_setup.exe"]
 
 # When it is added via the dockerfile it is owned read+write only by root
 RUN chown docker:docker ynab_setup.exe
