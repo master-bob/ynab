@@ -5,11 +5,11 @@ MAINTAINER Leonardo Canessa "masterbob@gmail.com"
 # Let apt know that we will be running non-interactively.
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install wget
-RUN apt-get update; apt-get install -y wget
+# Install wget, apt-utils
+RUN apt-get update; apt-get install -y wget apt-utils
 
 # Install apt-add-repository
-RUN apt-get install -y software-properties-common python-software-properties apt-transport-https
+RUN apt-get install -y software-properties-common apt-transport-https
 
 # Setup i386 architecture
 RUN dpkg --add-architecture i386; \
