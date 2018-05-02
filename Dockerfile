@@ -18,7 +18,7 @@ RUN apt-get install -y software-properties-common apt-transport-https gnupg
 RUN dpkg --add-architecture i386; \
     wget -nc https://dl.winehq.org/wine-builds/Release.key; \
     apt-key add Release.key; \
-    apt-add-repository https://dl.winehq.org/wine-builds/debian/ buster main
+    apt-add-repository 'deb https://dl.winehq.org/wine-builds/debian/ buster main'
 
 # Get the latest WINE
 RUN apt-get update; apt-get install -y winehq-stable winetricks wine-mono4.7.1 wine-gecko2.47
