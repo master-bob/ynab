@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM debian:buster
 
 MAINTAINER Leonardo Canessa "masterbob@gmail.com"
 
@@ -15,7 +15,7 @@ RUN apt-get install -y software-properties-common python-software-properties apt
 RUN dpkg --add-architecture i386; \
     wget -nc https://dl.winehq.org/wine-builds/Release.key; \
     apt-key add Release.key; \
-    apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/
+    apt-add-repository https://dl.winehq.org/wine-builds/debian/ buster main
 
 # Get the latest WINE
 RUN apt-get update; apt-get install -y winehq-stable
