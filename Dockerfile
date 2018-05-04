@@ -30,7 +30,7 @@ RUN apt-get update; apt-get install -y winehq-stable winetricks
 RUN apt-get update; apt-get install -y locales tzdata
 RUN locale-gen en_US.UTF-8
 RUN update-locale LANG=en_US.UTF-8
-RUN echo "America/Chicago" > /etc/timezone
+RUN echo "Europe/Berlin" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Create a user inside the container, what has the same UID as your
