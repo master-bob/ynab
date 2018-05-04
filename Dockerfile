@@ -14,7 +14,7 @@ RUN apt-get install -y wget
 # Install apt-add-repository
 RUN apt-get install -y software-properties-common apt-transport-https gnupg
 
-# Setup i386 architecture
+# Setup i386 architecture, add winehq repo
 RUN dpkg --add-architecture i386; \
     wget -nc https://dl.winehq.org/wine-builds/Release.key; \
     apt-key add Release.key; \
