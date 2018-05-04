@@ -1,9 +1,11 @@
 FROM debian:buster
 
-MAINTAINER Leonardo Canessa "masterbob@gmail.com"
+LABEL maintainer="Leonardo Canessa <masterbob@gmail.com>"
 
 # Let apt know that we will be running non-interactively.
 ENV DEBIAN_FRONTEND noninteractive
+# Set locale
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 RUN apt-get update
 
@@ -28,8 +30,10 @@ RUN apt-get update; apt-get install -y winehq-stable winetricks
 
 # Set the locale and timezone.
 RUN apt-get update; apt-get install -y locales tzdata
-RUN locale-gen en_US.UTF-8
-RUN update-locale LANG=en_US.UTF-8
+RUN locale-gen 'en_US.UTF-8'
+#ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+RUN locale; update-locale LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' 
+#RUN locale; update-locale LANG="en_US.UTF-8"
 RUN echo "Europe/Berlin" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
