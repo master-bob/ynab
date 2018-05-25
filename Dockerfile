@@ -4,25 +4,25 @@ LABEL maintainer="Leonardo Canessa <masterbob@gmail.com>"
 
 # Let apt know that we will be running non-interactively.
 ENV DEBIAN_FRONTEND noninteractive
-# Set locale
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
-RUN apt-get update
+# Update and install apt-utils
+RUN apt-get update; apt-get install -y apt-utils
 
 # Set the locale and timezone.
 RUN apt-get install -y locales tzdata
-# Following based on https://serverfault.com/a/825872 by Mike Mitterer
+# Following based on various answers from https://serverfault.com/q/362903
 RUN echo "Europe/Berlin" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata && \
-    sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen && \
+    sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure -f noninteractive locales && \
-    update-locale LANG=$LANG LANGUAGE=$LANGUAGE LC_ALL=$LC_ALL
+    update-locale LANG=en_US.UTF-8 && \
+    update-locale LANGUAGE=en_US:en && \
+    update-locale LC_ALL=en_US.UTF-8
 
-# Install wget, apt-utils
-RUN apt-get install -y apt-utils wget
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install preqs to add winehq repo
-RUN apt-get install -y software-properties-common apt-transport-https gnupg
+RUN apt-get install -y software-properties-common apt-transport-https gnupg wget
 
 # Setup i386 architecture, add winehq repo
 RUN dpkg --add-architecture i386; \
