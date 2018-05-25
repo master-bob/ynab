@@ -19,8 +19,7 @@ RUN echo "Europe/Berlin" > /etc/timezone && \
     update-locale LANG=$LANG LANGUAGE=$LANGUAGE LC_ALL=$LC_ALL
 
 # Install wget, apt-utils
-RUN apt-get install -y apt-utils
-RUN apt-get install -y wget
+RUN apt-get install -y apt-utils wget
 
 # Install apt-add-repository
 RUN apt-get install -y software-properties-common apt-transport-https gnupg
@@ -40,7 +39,7 @@ RUN apt-get update; apt-get install -y winehq-stable winetricks mono-complete
 # Create a user inside the container, what has the same UID as your
 # user on the host system, to permit X11 socket sharing / GUI Your ID
 # is probably 1000, but you can find out by typing `id` at a terminal.
-RUN apt-get update; apt-get install -y sudo
+RUN apt-get install -y sudo
 RUN export uid=1000 gid=1000 && \
     mkdir -p /home/docker && \
     echo "docker:x:${uid}:${gid}:Docker,,,:/home/docker:/bin/bash" >> /etc/passwd && \
