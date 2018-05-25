@@ -9,6 +9,15 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 RUN apt-get update
 
+# Set the locale and timezone.
+RUN apt-get install -y locales tzdata
+# Following based on https://serverfault.com/a/825872 by Mike Mitterer
+RUN echo "Europe/Berlin" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    sed -i -e "s/# $LANG.*/$LANG.UTF-8 UTF-8/" /etc/locale.gen && \
+    dpkg-reconfigure -f noninteractive locales && \
+    update-locale LANG=$LANG LANGUAGE=$LANGUAGE LC_ALL=$LC_ALL
+
 # Install wget, apt-utils
 RUN apt-get install -y apt-utils
 RUN apt-get install -y wget
@@ -27,15 +36,6 @@ RUN apt-add-repository 'deb http://deb.debian.org/debian buster contrib'
 
 # Get the latest WINE
 RUN apt-get update; apt-get install -y winehq-stable winetricks mono-complete
-
-# Set the locale and timezone.
-RUN apt-get update; apt-get install -y locales tzdata
-RUN locale-gen 'en_US.UTF-8'
-#ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
-RUN locale; update-locale LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8' 
-#RUN locale; update-locale LANG="en_US.UTF-8"
-RUN echo "Europe/Berlin" > /etc/timezone
-RUN dpkg-reconfigure -f noninteractive tzdata
 
 # Create a user inside the container, what has the same UID as your
 # user on the host system, to permit X11 socket sharing / GUI Your ID
