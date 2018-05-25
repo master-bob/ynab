@@ -21,7 +21,7 @@ RUN echo "Europe/Berlin" > /etc/timezone && \
 # Install wget, apt-utils
 RUN apt-get install -y apt-utils wget
 
-# Install apt-add-repository
+# Install preqs to add winehq repo
 RUN apt-get install -y software-properties-common apt-transport-https gnupg
 
 # Setup i386 architecture, add winehq repo
