@@ -37,7 +37,7 @@ RUN dpkg --add-architecture i386; \
 RUN apt-add-repository 'deb http://deb.debian.org/debian buster contrib'
 
 # Get the latest WINE
-RUN apt-get update; apt-get install -y winehq-stable winetricks
+RUN apt-get update; apt-get install -y winehq-stable winetricks xvfb
 
 # Create a user inside the container, what has the same UID as your
 # user on the host system, to permit X11 socket sharing / GUI Your ID
@@ -73,3 +73,9 @@ ADD ["https://downloadpull-youneedabudgetco.netdna-ssl.com/ynab4/liveCaptive/Win
 RUN chown docker:docker ynab_setup.exe
 
 USER docker
+
+# Wine initial setup
+ENV WINEPREFIX /home/docker/.wine
+RUN xvfb-run wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
+RUN WINEARCH=win32 WINEPREFIX=/home/docker/.wine32 xvfb-run wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
+RUN echo 'alias WIN32="WINEARCH=win32 WINEPREFIX=/home/docker/.wine32"' >> ~/.bashrc
