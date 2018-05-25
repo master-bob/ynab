@@ -26,7 +26,7 @@ RUN dpkg --add-architecture i386; \
 RUN apt-add-repository 'deb http://deb.debian.org/debian buster contrib'
 
 # Get the latest WINE
-RUN apt-get update; apt-get install -y winehq-stable winetricks
+RUN apt-get update; apt-get install -y winehq-stable winetricks mono-complete
 
 # Set the locale and timezone.
 RUN apt-get update; apt-get install -y locales tzdata
