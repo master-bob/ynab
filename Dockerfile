@@ -51,6 +51,9 @@ RUN export uid=1000 gid=1000 && \
     chmod 0440 /etc/sudoers.d/docker && \
     chown ${uid}:${gid} -R /home/docker
 
+# Clean Up
+RUN apt-get -y autoclean && apt-get -y clean && apt-get -y autoremove
+
 # Get Gecko
 WORKDIR /home/docker/.cache/wine
 ADD ["http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi", "wine_gecko-2.47-x86.msi"]
