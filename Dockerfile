@@ -37,7 +37,7 @@ RUN dpkg --add-architecture i386; \
 RUN apt-add-repository 'deb http://deb.debian.org/debian buster contrib'
 
 # Get the latest WINE
-RUN apt-get update; apt-get install -y winehq-stable winetricks mono-complete
+RUN apt-get update; apt-get install -y winehq-stable winetricks
 
 # Create a user inside the container, what has the same UID as your
 # user on the host system, to permit X11 socket sharing / GUI Your ID
@@ -50,6 +50,15 @@ RUN export uid=1000 gid=1000 && \
     echo "docker ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/docker && \
     chmod 0440 /etc/sudoers.d/docker && \
     chown ${uid}:${gid} -R /home/docker
+
+# Get Gecko
+WORKDIR /home/docker/.cache/wine
+ADD ["http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi", "wine_gecko-2.47-x86.msi"]
+RUN chown docker:docker wine_gecko-2.47-x86.msi
+
+# Get Mono
+ADD ["http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi", "wine-mono-4.7.1.msi"]
+RUN chown docker:docker wine-mono-4.7.1.msi
 
 ENV HOME /home/docker
 WORKDIR /home/docker
