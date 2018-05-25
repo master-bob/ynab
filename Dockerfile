@@ -5,6 +5,9 @@ LABEL maintainer="Leonardo Canessa <masterbob@gmail.com>"
 # Let apt know that we will be running non-interactively.
 ENV DEBIAN_FRONTEND noninteractive
 
+# Use Local Apt-cache, Remove if no app-cache
+RUN  echo 'Acquire::http { Proxy "http://172.17.0.1:3142"; };' >> /etc/apt/apt.conf.d/01proxy
+
 # Update and install apt-utils
 RUN apt-get update; apt-get install -y apt-utils
 
