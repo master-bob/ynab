@@ -59,18 +59,21 @@ RUN apt-get -y autoremove software-properties-common && \
 
 # Get Gecko
 WORKDIR /home/docker/.cache/wine
-ADD ["http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi", "wine_gecko-2.47-x86.msi"]
+#ADD ["http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi", "wine_gecko-2.47-x86.msi"]
+RUN wget -q http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi
 RUN chown docker:docker wine_gecko-2.47-x86.msi
 
 # Get Mono
-ADD ["http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi", "wine-mono-4.7.1.msi"]
+#ADD ["http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi", "wine-mono-4.7.1.msi"]
+RUN wget -q "http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi"
 RUN chown docker:docker wine-mono-4.7.1.msi
 
 ENV HOME /home/docker
 WORKDIR /home/docker
 
 # Add the ynab installer to the image.
-ADD ["https://downloadpull-youneedabudgetco.netdna-ssl.com/ynab4/liveCaptive/Win/YNAB%204_4.3.857_Setup.exe", "ynab_setup.exe"]
+#ADD ["https://downloadpull-youneedabudgetco.netdna-ssl.com/ynab4/liveCaptive/Win/YNAB%204_4.3.857_Setup.exe", "ynab_setup.exe"]
+RUN wget -q "https://downloadpull-youneedabudgetco.netdna-ssl.com/ynab4/liveCaptive/Win/YNAB%204_4.3.857_Setup.exe" -O ynab_setup.exe
 
 # When it is added via the dockerfile it is owned read+write only by root
 RUN chown docker:docker ynab_setup.exe
