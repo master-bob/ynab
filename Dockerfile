@@ -79,6 +79,6 @@ USER docker
 
 # Wine initial setup
 ENV WINEPREFIX /home/docker/.wine
-RUN xvfb-run wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
-RUN WINEARCH=win32 WINEPREFIX=/home/docker/.wine32 xvfb-run wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
+RUN xvfb-run -a -s "-screen 0 1024x768x24" wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
+RUN WINEARCH=win32 WINEPREFIX=/home/docker/.wine32 xvfb-run -a -s "-screen 0 1024x768x24" wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
 RUN echo 'alias WIN32="WINEARCH=win32 WINEPREFIX=/home/docker/.wine32"' >> ~/.bashrc
