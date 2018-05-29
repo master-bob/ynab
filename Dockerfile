@@ -52,7 +52,10 @@ RUN export uid=1000 gid=1000 && \
     chown ${uid}:${gid} -R /home/docker
 
 # Clean Up
-RUN apt-get -y autoclean && apt-get -y clean && apt-get -y autoremove
+RUN apt-get -y autoremove software-properties-common && \
+    apt-get -y autoclean && \
+    apt-get -y clean && \
+    apt-get -y autoremove
 
 # Get Gecko
 WORKDIR /home/docker/.cache/wine
