@@ -58,12 +58,11 @@ RUN apt-get -y autoremove software-properties-common && \
 WORKDIR /home/docker/.cache/wine
 #ADD ["http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi", "wine_gecko-2.47-x86.msi"]
 RUN wget -q http://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi
-RUN chown docker:docker wine_gecko-2.47-x86.msi
 
 # Get Mono
 #ADD ["http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi", "wine-mono-4.7.1.msi"]
 RUN wget -q "http://dl.winehq.org/wine/wine-mono/4.7.1/wine-mono-4.7.1.msi"
-RUN chown docker:docker wine-mono-4.7.1.msi
+RUN chown docker:docker -R /home/docker/.cache
 
 ENV HOME /home/docker
 WORKDIR /home/docker
@@ -82,3 +81,4 @@ ENV WINEPREFIX /home/docker/.wine
 RUN xvfb-run -a -s "-screen 0 1024x768x24" wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
 RUN WINEARCH=win32 WINEPREFIX=/home/docker/.wine32 xvfb-run -a -s "-screen 0 1024x768x24" wine "wineboot" && while pgrep -u `whoami` wineserver > /dev/null; do sleep 1; done
 RUN echo 'alias WIN32="WINEARCH=win32 WINEPREFIX=/home/docker/.wine32"' >> ~/.bashrc
+RUN winetricks -q corefonts
