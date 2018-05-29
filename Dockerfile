@@ -25,19 +25,16 @@ RUN echo "Europe/Berlin" > /etc/timezone && \
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 # Install preqs to add winehq repo
-RUN apt-get install -y software-properties-common apt-transport-https gnupg wget
+RUN apt-get install -y software-properties-common apt-transport-https wget
 
-# Setup i386 architecture, add winehq repo
-RUN dpkg --add-architecture i386; \
-    wget -nc https://dl.winehq.org/wine-builds/Release.key; \
-    apt-key add Release.key; \
-    apt-add-repository 'deb https://dl.winehq.org/wine-builds/debian/ buster main'
+# Setup i386 architecture
+RUN dpkg --add-architecture i386
 
 # Add Contrib repo for winetricks
 RUN apt-add-repository 'deb http://deb.debian.org/debian buster contrib'
 
 # Get the latest WINE
-RUN apt-get update; apt-get install -y winehq-stable winetricks xvfb
+RUN apt-get update; apt-get install -y wine wine32 libwine libwine:i386 fonts-wine winetricks winbind xvfb
 
 # Create a user inside the container, what has the same UID as your
 # user on the host system, to permit X11 socket sharing / GUI Your ID
